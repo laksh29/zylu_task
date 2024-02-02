@@ -28,7 +28,6 @@ class HomeScreen extends StatelessWidget {
       body: FutureBuilder(
           future: Firestore().getEmployeData(),
           builder: (context, snapshot) {
-            log("Date: ${DateTime.now()}");
             if (snapshot.hasData) {
               log("Has Data");
               log("${snapshot.data!.length}");
@@ -53,8 +52,11 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               );
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text("Some Error"),
+              );
             } else {
-              log("Has Error");
               return const Center(
                 child: CircularProgressIndicator(),
               );
